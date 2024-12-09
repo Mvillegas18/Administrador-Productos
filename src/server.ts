@@ -3,6 +3,7 @@ import express from 'express';
 import db from './config/db';
 
 const server = express();
+server.use(express.json());
 
 const connectDB = async () => {
 	try {
