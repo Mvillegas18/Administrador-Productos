@@ -57,8 +57,18 @@ router.put(
 	updateProduct
 );
 
-router.patch('/', updateAvailability);
+router.patch(
+	'/',
+	param('id').isInt().withMessage('ID no valido'),
+	handleImportErrors,
+	updateAvailability
+);
 
-router.delete('/:id', deleteProduct);
+router.delete(
+	'/:id',
+	param('id').isInt().withMessage('ID no valido'),
+	handleImportErrors,
+	deleteProduct
+);
 
 export default router;
