@@ -1,9 +1,11 @@
 import colors from 'colors';
 import express from 'express';
 import db from './config/db';
+import router from './router';
 
-const server = express();
+export const server = express();
 server.use(express.json());
+server.use('/api/products', router);
 
 const connectDB = async () => {
 	try {
@@ -18,5 +20,9 @@ const connectDB = async () => {
 };
 
 connectDB();
+
+server.get('/api/', (req, res) => {
+	res.json({ message: 'desde api' });
+});
 
 export default server;
