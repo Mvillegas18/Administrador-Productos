@@ -41,3 +41,18 @@ describe('POST /api/products', () => {
 		expect(response.body).not.toHaveProperty('errors');
 	});
 });
+
+describe('GET /api/products', () => {
+	it('Get a json response with products', async () => {
+		const response = await request(server).get('/api/products');
+
+		expect(response.status).toBe(200);
+		expect(response.headers['content-type']).toMatch(/json/);
+		expect(response.body).toHaveProperty('data');
+		expect(response.body.data).toBeTruthy();
+
+		expect(response.status).not.toBe(404);
+		expect(response.body.data).toBeTruthy();
+		expect(response.body).not.toHaveProperty('errors');
+	});
+});
