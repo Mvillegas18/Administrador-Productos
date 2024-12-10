@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "npx tsx watch src/index.ts",
 		"build": "npx tsc",
-		"test": "jest --detectOpenHandles"
+		"test": "jest --detectOpenHandles",
+		"pretest": "tsx ./src/data --clear"
 	},
 	"keywords": [],
 	"author": "Miguel Angel Villegas",
