@@ -40,9 +40,9 @@ export const createProduct: RequestHandler = async (
 ) => {
 	try {
 		const product = await Product.create(req.body);
-		res.json({ product: product });
+		res.status(201).json({ product: product });
 	} catch (error) {
-		console.log(error);
+		res.status(404).json({ errors: error });
 	}
 };
 
