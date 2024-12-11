@@ -128,23 +128,6 @@ describe('PUT /api/products/:id', () => {
 		expect(response.body).not.toHaveProperty('data');
 	});
 
-	it('Should return a 404 response for a non-existent product', async () => {
-		const productID = 2000;
-		const response = await request(server)
-			.put(`/api/products/${productID}`)
-			.send({
-				name: 'Monitor curvo',
-				price: 0,
-				availability: true,
-			});
-
-		expect(response.status).toBe(404);
-		expect(response.body.error).toHaveProperty('Producto no encontrado');
-
-		expect(response.status).not.toBe(200);
-		expect(response.body).not.toHaveProperty('data');
-	});
-
 	it('Should update an existing product with valid data', async () => {
 		const response = await request(server).put(`/api/products/1`).send({
 			name: 'Monitor curvo',
@@ -155,7 +138,38 @@ describe('PUT /api/products/:id', () => {
 		expect(response.status).toBe(200);
 		expect(response.body).toHaveProperty('data');
 
-		expect(response.status).not.toBe(400);
+		expect(response.status).not.toBe(404);
 		expect(response.body).not.toHaveProperty('errors');
+	});
+});
+
+describe('DELETE /api/products/:id', () => {
+	it('Should check a valid id', async () => {
+		const response = await request(server).delete('/api/products/not-valid');
+
+		expect(response.status).toBe(400);
+		expect(response.body).toHaveProperty('errors');
+		expect(response.body).toHaveProperty('errors');
+		expect(response.body.errors[0].msg).toBe('ID no valido');
+	});
+
+	it('Should return 404 response for a non existent product ', async () => {
+		const productID = 2;
+		const response = await request(server).delete(`/api/products/${productID}`);
+
+		expect(response.status).toBe(404);
+		expect(response.body.error).toBe('Producto no encontrado');
+
+		expect(response.status).not.toBe(200);
+	});
+
+	it('Should delete product', async () => {
+		const response = await request(server).delete('/api/products/1');
+
+		expect(response.status).toBe(200);
+		expect(response.body.data).toBe('Producto eliminado');
+
+		expect(response.status).not.toBe(404);
+		expect(response.status).not.toBe(400);
 	});
 });
