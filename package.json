@@ -6,6 +6,7 @@
 		"dev": "npx tsx watch src/index.ts",
 		"build": "npx tsc",
 		"test": "jest --detectOpenHandles",
+		"test:coverage": "npm run pretest && jest --detectOpenHandles --coverage",
 		"pretest": "tsx ./src/data --clear"
 	},
 	"keywords": [],
