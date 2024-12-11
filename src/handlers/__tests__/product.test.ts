@@ -84,20 +84,18 @@ describe('GET /api/products/:id', () => {
 });
 
 describe('PUT /api/products/:id', () => {
-	// it('should check a valid ID in the URL', async () => {
-	// 	const response = await request(server)
-	// 		.put('/api/products/not-valid-url')
-	// 		.send({
-	// 			name: 'Monitor curvo',
-	// 			price: 300,
-	// 			availability: true,
-	// 		});
+	it('should check a valid ID in the URL', async () => {
+		const response = await request(server)
+			.put('/api/products/not-valid-url')
+			.send({
+				name: 'Monitor curvo',
+				price: 300,
+				availability: true,
+			});
 
-	// 	expect(response.status).toBe(400);
-	// 	expect(response.body).toHaveProperty('errors');
-	// 	expect(response.body.errors).toHaveLength(1);
-	// 	expect(response.body.errors[0].msg).toBe('ID no valido');
-	// });
+		expect(response.status).toBe(404);
+		expect(response.body).toHaveProperty('error');
+	});
 
 	it('Should display validation errors messages when updating a product', async () => {
 		const response = await request(server).put(`/api/products/1`).send({});
