@@ -46,18 +46,23 @@ export const createProduct: RequestHandler = async (
 	}
 };
 
-export const updateProduct = async (req: Request, res: Response) => {
+export const updateProduct = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
 	const { id } = req.params;
 
-	const product = await Product.findByPk(id);
-	if (!product) {
-		res.status(404).json({ error: 'Producto no encontrado' });
+	try {
+		const product = await Product.findByPk(id);
+		if (!product) {
+			res.status(404).json({ error: 'Producto no encontrado' });
+		}
+		await product?.update(req.body);
+		await product?.save();
+		res.status(200).json({ data: product });
+	} catch (error) {
+		res.status(404).json({ error: 'Error al actualizar el producto' });
 	}
-
-	await product?.update(req.body);
-	await product?.save();
-
-	res.status(200).json({ data: product });
 };
 
 export const updateAvailability = async (req: Request, res: Response) => {
