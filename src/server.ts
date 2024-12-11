@@ -1,5 +1,7 @@
-import colors from 'colors';
 import express from 'express';
+import colors from 'colors';
+import { serve, setup } from 'swagger-ui-express';
+import swaggerSpec from './config/swagger';
 import db from './config/db';
 import router from './router';
 
@@ -19,8 +21,8 @@ const server = express();
 server.use(express.json());
 server.use('/api/products', router);
 
-server.get('/api/', (req, res) => {
-	res.json({ message: 'desde api' });
-});
+// Docs
+
+server.use('/docs', serve, setup(swaggerSpec));
 
 export default server;
