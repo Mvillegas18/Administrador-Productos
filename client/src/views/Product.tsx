@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function Product() {
+export function Product() {
 	return (
 		<div className='flex justify-between items-center'>
 			<h2 className='text-4xl font-black text-slate-700'>Products</h2>

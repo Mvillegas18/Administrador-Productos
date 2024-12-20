@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-export default function Layout() {
+export function Layout() {
 	return (
 		<>
 			<header className='bg-slate-700 mx-2 my-2 rounded-md flex justify-center'>
