@@ -20,7 +20,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
 
 			<div className='flex justify-end mt-4 gap-2'>
 				<Link
-					to={`/products/edit/${product.id}`}
+					to={`/products/${product.id}/edit`}
 					className='bg-yellow-600 text-white px-3 py-1 rounded-lg hover:bg-yellow-500 transition-all text-sm'>
 					Edit
 				</Link>
