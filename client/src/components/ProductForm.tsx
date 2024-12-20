@@ -2,6 +2,7 @@ import { ActionFunctionArgs, Form, useActionData } from 'react-router-dom';
 import { ErrorMessage } from './ErrorMessage';
 import { addProduct } from '../services/productService';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const action = async ({ request }: ActionFunctionArgs) => {
 	const data = Object.fromEntries(await request.formData());
 
