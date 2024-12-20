@@ -2,7 +2,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import { action as newProductAction } from './components/ProductForm';
 import { Layout } from './layouts/Layout';
 import { NewProduct } from './views/NewProduct';
-import { loader as productsLoader, Product } from './views/Product';
+import { Product, loader as productsLoader } from './views/Product';
+import { EditProduct } from './views/ProductEdit';
 
 export const router = createBrowserRouter([
 	{
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
 				path: 'products/new',
 				element: <NewProduct />,
 				action: newProductAction,
+			},
+			{
+				path: 'products/:id/:edit',
+				element: <EditProduct />,
 			},
 		],
 	},
