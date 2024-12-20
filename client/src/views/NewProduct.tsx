@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import ProductForm from '../components/ProductForm';
+import { ProductForm } from '../components/ProductForm';
 
-export default function NewProduct() {
+export function NewProduct() {
 	return (
 		<>
 			<div className='flex justify-between items-center'>
