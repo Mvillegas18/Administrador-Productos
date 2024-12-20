@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Product } from '../types';
 import { formatCurrency } from '../utils';
 
@@ -16,6 +17,19 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
 				}`}>
 				{product.availability ? 'Available' : 'Unavailable'}
 			</p>
+
+			<div className='flex justify-end mt-4 gap-2'>
+				<Link
+					to={`/products/edit/${product.id}`}
+					className='bg-yellow-600 text-white px-3 py-1 rounded-lg hover:bg-yellow-500 transition-all text-sm'>
+					Edit
+				</Link>
+				<button
+					onClick={() => {}}
+					className='bg-red-700 text-white px-3 py-1 rounded-lg hover:bg-red-500 transition-all text-sm'>
+					Delete
+				</button>
+			</div>
 		</div>
 	);
 };
