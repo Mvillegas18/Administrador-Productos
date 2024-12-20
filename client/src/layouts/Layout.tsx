@@ -6,7 +6,7 @@ export function Layout() {
 			<header className='bg-slate-700 mx-2 my-2 rounded-md flex justify-center'>
 				<div className='max-w-6xl py-5'>
 					<h1 className='text-4xl font-extrabold text-white'>
-						Administrador de productos
+						Product Manager
 					</h1>
 				</div>
 			</header>
