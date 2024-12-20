@@ -1,12 +1,22 @@
-import { Form } from 'react-router-dom';
+import { ActionFunctionArgs, Form, useActionData } from 'react-router-dom';
+import { ErrorMessage } from './ErrorMessage';
 
-export const action = async () => {
-	console.log('desde action...');
+export const action = async ({ request }: ActionFunctionArgs) => {
+	const data = Object.fromEntries(await request.formData());
+
+	let error = '';
+	if (Object.values(data).includes('')) {
+		error = 'Todos los campos son obligatorios';
+	}
+
+	if (error.length) return error;
 
 	return {};
 };
 
 export const ProductForm = () => {
+	const error = useActionData() as string;
+
 	return (
 		<>
 			<div className='max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md'>
@@ -14,6 +24,7 @@ export const ProductForm = () => {
 					className='space-y-6'
 					method='POST'>
 					{/* Name Field */}
+					{error && <ErrorMessage>{error}</ErrorMessage>}
 					<div>
 						<label
 							htmlFor='name'
@@ -26,7 +37,6 @@ export const ProductForm = () => {
 							name='name'
 							className='w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
 							placeholder='Enter product name'
-							required
 						/>
 					</div>
 
@@ -43,7 +53,6 @@ export const ProductForm = () => {
 							name='price'
 							className='w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
 							placeholder='Enter product price'
-							required
 						/>
 					</div>
 
