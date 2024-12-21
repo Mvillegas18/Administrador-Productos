@@ -4,6 +4,7 @@ import {
 	redirect,
 	useNavigate,
 } from 'react-router-dom';
+import { deleteProduct } from '../services/productService';
 import { type Product } from '../types';
 import { formatCurrency } from '../utils';
 
@@ -12,8 +13,8 @@ interface ProductDetailsProps {
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const action = ({ params }: ActionFunctionArgs) => {
-	console.log(params.id);
+export const action = async ({ params }: ActionFunctionArgs) => {
+	await deleteProduct(Number(params.id));
 
 	return redirect('/');
 };
