@@ -3,6 +3,7 @@ import { action as newProductAction } from './components/ProductForm';
 import { Layout } from './layouts/Layout';
 import { NewProduct } from './views/NewProduct';
 import { Product, loader as productsLoader } from './views/Product';
+import { action as deleteProductAction } from './components/ProductDetails';
 import {
 	EditProduct,
 	loader as editProductLoader,
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
 				element: <EditProduct />,
 				loader: editProductLoader,
 				action: editProductAction,
+			},
+			{
+				path: 'products/:id/delete',
+				action: deleteProductAction,
 			},
 		],
 	},

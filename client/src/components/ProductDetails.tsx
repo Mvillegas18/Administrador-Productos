@@ -1,10 +1,22 @@
-import { useNavigate } from 'react-router-dom';
+import {
+	ActionFunctionArgs,
+	Form,
+	redirect,
+	useNavigate,
+} from 'react-router-dom';
 import { type Product } from '../types';
 import { formatCurrency } from '../utils';
 
 interface ProductDetailsProps {
 	product: Product;
 }
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const action = ({ params }: ActionFunctionArgs) => {
+	console.log(params.id);
+
+	return redirect('/');
+};
 
 export const ProductDetails = ({ product }: ProductDetailsProps) => {
 	const navigate = useNavigate();
@@ -32,11 +44,15 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
 					className='bg-yellow-600 text-white px-3 py-1 rounded-lg hover:bg-yellow-500 transition-all text-sm'>
 					Edit
 				</button>
-				<button
-					onClick={() => {}}
-					className='bg-red-700 text-white px-3 py-1 rounded-lg hover:bg-red-500 transition-all text-sm'>
-					Delete
-				</button>
+				<Form
+					method='post'
+					action={`products/${product.id}/delete`}>
+					<input
+						type='submit'
+						value='Delete'
+						className='bg-red-700 text-white px-3 py-1 rounded-lg hover:bg-red-500 transition-all text-sm'
+					/>
+				</Form>
 			</div>
 		</div>
 	);
