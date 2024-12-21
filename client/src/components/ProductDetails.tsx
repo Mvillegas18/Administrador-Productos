@@ -22,7 +22,13 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
 
 			<div className='flex justify-end mt-4 gap-2'>
 				<button
-					onClick={() => navigate(`/products/${product.id}/edit`)}
+					onClick={() =>
+						navigate(`/products/${product.id}/edit`, {
+							state: {
+								product,
+							},
+						})
+					}
 					className='bg-yellow-600 text-white px-3 py-1 rounded-lg hover:bg-yellow-500 transition-all text-sm'>
 					Edit
 				</button>
