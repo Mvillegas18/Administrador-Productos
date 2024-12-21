@@ -4,8 +4,10 @@ import {
 	Link,
 	LoaderFunctionArgs,
 	redirect,
+	useActionData,
 	useLoaderData,
 } from 'react-router-dom';
+import { ErrorMessage } from '../components/ErrorMessage';
 import { addProduct, getProductById } from '../services/productService';
 import { Product } from '../types';
 
@@ -36,6 +38,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export const EditProduct = () => {
 	const product = useLoaderData() as Product;
+	const error = useActionData() as string;
 
 	return (
 		<div className='max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md'>
@@ -47,7 +50,10 @@ export const EditProduct = () => {
 					Back to products
 				</Link>
 			</div>
-			<Form className='space-y-4'>
+			<Form
+				className='space-y-4'
+				method='put'>
+				{error && <ErrorMessage>{error}</ErrorMessage>}
 				{/* Name Input */}
 				<div className='relative'>
 					<label
@@ -57,10 +63,10 @@ export const EditProduct = () => {
 					</label>
 					<input
 						type='text'
+						name='name'
 						id='name'
 						className='w-full rounded-lg border border-slate-300 bg-slate-50 py-4 px-6 text-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
 						placeholder='Enter the product name'
-						required
 						defaultValue={product.name}
 					/>
 				</div>
@@ -75,11 +81,11 @@ export const EditProduct = () => {
 					<input
 						type='number'
 						id='price'
+						name='price'
 						className='w-full rounded-lg border border-slate-300 bg-slate-50 py-4 px-6 text-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
 						placeholder='Enter the product price'
 						min='0'
 						step='0.01'
-						required
 						defaultValue={product.price}
 					/>
 				</div>
@@ -88,7 +94,8 @@ export const EditProduct = () => {
 				<div className='flex items-center'>
 					<input
 						type='checkbox'
-						checked={product.availability}
+						name='availability'
+						defaultChecked={product.availability}
 						id='available'
 						className='h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500'
 					/>

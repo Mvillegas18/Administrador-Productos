@@ -32,8 +32,8 @@ export const ProductForm = () => {
 				<Form
 					className='space-y-6'
 					method='POST'>
-					{/* Name Field */}
 					{error && <ErrorMessage>{error}</ErrorMessage>}
+					{/* Name Field */}
 					<div>
 						<label
 							htmlFor='name'
