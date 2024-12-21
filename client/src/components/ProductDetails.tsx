@@ -47,7 +47,12 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
 				</button>
 				<Form
 					method='post'
-					action={`products/${product.id}/delete`}>
+					action={`products/${product.id}/delete`}
+					onSubmit={(e) => {
+						if (!confirm('Do you want to delete it?')) {
+							e.preventDefault();
+						}
+					}}>
 					<input
 						type='submit'
 						value='Delete'
