@@ -1,5 +1,22 @@
-import { ActionFunctionArgs, Form, Link, redirect } from 'react-router-dom';
-import { addProduct } from '../services/productService';
+import {
+	ActionFunctionArgs,
+	Form,
+	Link,
+	LoaderFunctionArgs,
+	redirect,
+	useLoaderData,
+} from 'react-router-dom';
+import { addProduct, getProductById } from '../services/productService';
+import { Product } from '../types';
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+	if (params.id !== undefined) {
+		const product = await getProductById(Number(params.id));
+		if (!product) return redirect('/');
+		return product;
+	}
+};
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -18,6 +35,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export const EditProduct = () => {
+	const product = useLoaderData() as Product;
+
 	return (
 		<div className='max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md'>
 			<div className='flex justify-between items-center'>
@@ -42,6 +61,7 @@ export const EditProduct = () => {
 						className='w-full rounded-lg border border-slate-300 bg-slate-50 py-4 px-6 text-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
 						placeholder='Enter the product name'
 						required
+						defaultValue={product.name}
 					/>
 				</div>
 
@@ -60,6 +80,7 @@ export const EditProduct = () => {
 						min='0'
 						step='0.01'
 						required
+						defaultValue={product.price}
 					/>
 				</div>
 
@@ -67,6 +88,7 @@ export const EditProduct = () => {
 				<div className='flex items-center'>
 					<input
 						type='checkbox'
+						checked={product.availability}
 						id='available'
 						className='h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500'
 					/>
