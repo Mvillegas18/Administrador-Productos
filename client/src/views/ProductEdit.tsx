@@ -8,7 +8,7 @@ import {
 	useLoaderData,
 } from 'react-router-dom';
 import { ErrorMessage } from '../components/ErrorMessage';
-import { addProduct, getProductById } from '../services/productService';
+import { getProductById, updateProduct } from '../services/productService';
 import { Product } from '../types';
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -21,7 +21,10 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const action = async ({
+	request,
+	params: { id },
+}: ActionFunctionArgs) => {
 	const data = Object.fromEntries(await request.formData());
 
 	let error = '';
@@ -31,7 +34,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 	if (error.length) return error;
 
-	await addProduct(data);
+	await updateProduct(data, Number(id));
 
 	return redirect('/');
 };
@@ -93,9 +96,15 @@ export const EditProduct = () => {
 				{/* Availability Checkbox */}
 				<div className='flex items-center'>
 					<input
+						type='hidden'
+						name='availability'
+						value='false'
+					/>
+					<input
 						type='checkbox'
 						name='availability'
 						defaultChecked={product.availability}
+						value='true'
 						id='available'
 						className='h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500'
 					/>
