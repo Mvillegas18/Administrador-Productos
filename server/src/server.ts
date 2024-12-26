@@ -1,11 +1,14 @@
 import colors from 'colors';
 import cors, { CorsOptions } from 'cors';
-import morgan from 'morgan';
 import express from 'express';
+import morgan from 'morgan';
 import { serve, setup } from 'swagger-ui-express';
 import db from './config/db';
 import swaggerSpec, { swaggerUiOptions } from './config/swagger';
 import router from './router';
+
+import dotenv from 'dotenv';
+dotenv.config();
 
 const connectDB = async () => {
 	try {
@@ -23,16 +26,7 @@ const server = express();
 
 //Permitir conexiones de origen cruzado (cors)
 const corsOptions: CorsOptions = {
-	origin: (origin, callback) => {
-		if (
-			origin === process.env.FRONTEND_URL ||
-			origin === 'https://www.thunderclient.com'
-		) {
-			callback(null, true);
-		} else {
-			callback(new Error('Error de cors'));
-		}
-	},
+	origin: process.env.FRONTEND_URL,
 };
 server.use(cors(corsOptions));
 server.use(express.json());
