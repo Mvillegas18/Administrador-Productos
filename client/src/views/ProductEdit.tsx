@@ -18,6 +18,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		if (!product) return redirect('/');
 		return product;
 	}
+	return null;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
